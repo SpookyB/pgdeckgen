@@ -2,7 +2,7 @@ from random import getrandbits
 
 def oneifboth(a, b, highcard):
 	conj = a & b
-	rand = 2**highcard + getrandbits(highcard)
+	rand = getrandbits(highcard)
 	return rand & conj, ~rand & conj
 	
 def cards(binrep, highcard):
