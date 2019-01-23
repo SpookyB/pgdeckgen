@@ -3,7 +3,7 @@ from random import getrandbits
 def oneifboth(a, b):
 	conj = a & b
 	rand = getrandbits(conj.bit_length())
-	return rand & conj, ~rand & conj
+	return conj & rand, conj & ~rand
 	
 def cards(binrep):
 	return [pos for pos, digit in enumerate(reversed(str(bin(binrep)))) if digit == '1']
