@@ -1,24 +1,23 @@
 from random import getrandbits
 
-def oneifboth(a, b, highcard):
+def oneifboth(a, b):
 	conj = a & b
-	rand = getrandbits(highcard)
+	rand = getrandbits(max(a, b).bit_length())
 	return rand & conj, ~rand & conj
 	
-def cards(binrep, highcard):
-	return [pos for pos, digit in enumerate(str(bin(binrep + 2**highcard))[2:]) if digit == '1'][1:]
+def cards(binrep):
+	return [pos for pos, digit in enumerate(reversed(str(bin(binrep)))) if digit == '1']
 
-def methodtwo(gy, gn, highcard):
-	gy, gn = oneifboth(gy, gn, highcard)
+def methodtwo(gy, gn):
+	gy, gn = oneifboth(gy, gn)
 	print("Grey cards:")
-	print(cards(gy, highcard))
+	print(cards(gy))
 	print("Green cards:")
-	print([1, 2] + cards(gn, highcard))
+	print([1, 2] + cards(gn))
 	
-####   000000000111111111122222222223333333333444444444455555555556
-####   123456789012345678901234567890123456789012345678901234567890
-gy = 0b001111111111111111111111111111111111111101010100010000000000
-gn = 0b111111111111111100111111111111111111111101010100010101001001
-highcard = 60
+####   6555555555544444444443333333333222222222211111111110000000000
+####   0987654321098765432109876543210987654321098765432109876543210
+gy = 0b0000000000100010101011111111111111111111111111111111111111000
+gn = 0b1001001010100010101011111111111111111111110011111111111111110
 
-methodtwo(gy, gn, highcard)
+methodtwo(gy, gn)
