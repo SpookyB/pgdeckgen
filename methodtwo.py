@@ -1,13 +1,20 @@
 from random import getrandbits
 
+## Returns A∧B∧R and A∧B∧¬R where R is a random number who's bitlength
+## is at most the length of the bitstring of A∧B
 def oneifboth(a, b):
 	conj = a & b
 	rand = getrandbits(conj.bit_length())
 	return conj & rand, conj & ~rand
-	
-def cards(binrep):
-	return [pos for pos, digit in enumerate(reversed(str(bin(binrep)))) if digit == '1']
 
+## Returns a list of cards that exist in a deck given a bitstring
+## where card numbers are represented by their position in the reverse string
+def cards(binrep):
+	return [pos for pos, digit in enumerate(reversed(bin(binrep))) if digit == '1']
+
+	
+## Variant 2: Power Grid with both power plant decks
+## ref: http://riograndegames.com/getFile.php?id=245
 def methodtwo(gy, gn):
 	gy, gn = oneifboth(gy, gn)
 	print("Grey cards:")
